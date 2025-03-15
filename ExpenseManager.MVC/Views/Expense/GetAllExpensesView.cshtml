@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Expense Page";
+}
+
+@model List<Expense>        
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Expense" asp-action="Home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Expense" asp-action="AddUpdateExpenseView">Add</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="text-center">
+    <h1 class="display-4">Welcome to Expense manager</h1>
+    <hr />
+    <h3>Total Expenses in Rs: @ViewBag.Expenses</h3>
+    <h3>Remaing amount in Rs: @ViewData["Remaining"]</h3>
+    <br/>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Value
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach(var expense in Model)
+                {
+                    <tr>
+                        <td>@expense.Id</td>
+                        <td>@expense.Value</td>
+                        <td>@expense.Description</td>
+                        <td>
+                            <a asp-controller="Expense" asp-action="AddUpdateExpenseView" asp-route-id="@expense.Id">Edit</a>
+                            <a asp-controller="Expense" asp-action="DeleteExpense" asp-route-id="@expense.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
